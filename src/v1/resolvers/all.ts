@@ -1,33 +1,40 @@
 import { Router } from 'express';
 import prisma from '../prisma';
+import DataResponse from '../interfaces/DataResponse';
+import { filterParams, verifyFilterParams } from '../middleware/filterParams';
+import { maakondFields } from '../fields/Maakond';
+import { linnFields } from '../fields/Linn';
 
 const router = Router();
 
-router.get('/all', async (req, res) => {
-  let maakonnad = await prisma.maakond.findMany({
-    select: {
-      id: true,
-      nimi: true,
-      pindala: true,
-      rahvaarv: true,
-      keskus: { select: { id: true, nimi: true } },
-    },
-  });
+router.get('/all', filterParams, async (req: any, res: any, next: any) => {
+  try {
+    const { filter } = res.locals;
 
-  let linnad = await prisma.linn.findMany();
+    let errorField = verifyFilterParams(filter, maakondFields);
+    errorField = verifyFilterParams(filter, linnFields);
 
-  const data = {
-    maakonnad,
-    linnad,
-  };
+    if (errorField) throw Error(`Viga küsitud väljas ${errorField}`);
 
-  const response = {
-    amount: maakonnad.length + linnad.length,
-    date: new Date(),
-    data,
-  };
+    const maakonnad = await prisma.maakond.findMany(filter);
 
-  res.json(response);
+    const linnad = await prisma.linn.findMany(filter);
+
+    const data = {
+      maakonnad,
+      linnad,
+    };
+
+    const response: DataResponse = {
+      amount: maakonnad.length + linnad.length,
+      date: new Date(),
+      data,
+    };
+
+    res.json(response);
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;

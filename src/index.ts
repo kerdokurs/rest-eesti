@@ -1,17 +1,21 @@
 import express from 'express';
 import morgan from 'morgan';
 
+import 'dotenv/config';
+
 import v1 from './v1';
 import prisma from './v1/prisma';
-import { join } from 'path';
+import { errorHandler } from './v1/middleware/errorHandler';
 
 const app = express();
 
 app.use(morgan('dev'));
 
+app.use(express.static('public'));
+
 app.use('/v1', v1);
 
-app.use(express.static('public'));
+app.use(errorHandler);
 
 /* app.get('/', async (req, res) => {
   const maakonnad = await prisma.maakond.findMany({

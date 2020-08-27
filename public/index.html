@@ -1,1 +1,87 @@
-index html
+<!DOCTYPE html>
+<html lang="et">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Noto+Sans:regular,italic,700,700italic"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Eesti REST API</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Eesti REST API</h1>
+      <p>Tere tulemast kasutama Eesti REST API-d.</p>
+      <p>Eesti REST API on API, kust saab infot Eesti kohta.</p>
+      <hr />
+      <h3>Päringud</h3>
+      <h4>Kõik</h4>
+      <pre><code>
+        GET eesti.kerdo.me/v1/all
+      </code></pre>
+      <h5>Parameetrid</h5>
+      <pre><code>
+        fields=[id,nimi,pindala,rahvaarv] - komaga eraldatud väljad
+      </code></pre>
+      <h4>Maakonnad</h4>
+      <pre><code>
+        GET eesti.kerdo.me/v1/maakonnad
+      </code></pre>
+      <h5>Parameetrid</h5>
+      <pre><code>
+        fields=[id,nimi,pindala,rahvaarv,keskus] - komaga eraldatud väljad
+      </code></pre>
+      <h4>Linnad</h4>
+      <pre><code>
+        GET eesti.kerdo.me/v1/linnad
+      </code></pre>
+      <h5>Parameetrid</h5>
+      <pre><code>
+        fields=[id,nimi,pindala,rahvaarv] - komaga eraldatud väljad
+      </code></pre>
+      <hr />
+      <h3>Üldised parameetrid</h3>
+      <pre><code>
+        limit={arv} - tulemuste arv (vaikesäte = 20)
+        order={väli},{asc | desc} - sorteerimine välja järgi
+      </code></pre>
+      <hr />
+      <h3>Näited</h3>
+      <h4>Päring</h4>
+      <pre><code>
+        GET eesti.kerdo.me/v1/maakonnad?fields=nimi,rahvaarv&limit=5&order=rahvaarv,desc
+      </code></pre>
+      <h4>Vastus</h4>
+      <pre><code>
+        {
+          amount: 5,
+          date: "2020-08-27T19:31:21.311Z",
+          data: [
+            {
+              nimi: "Harju maakond",
+              rahvaarv: 552643
+            },
+            {
+              nimi: "Tartu maakond",
+              rahvaarv: 150287
+            },
+            {
+              nimi: "Ida-Viru maakond",
+              rahvaarv: 138266
+            },
+            {
+              nimi: "Pärnu maakond",
+              rahvaarv: 82584
+            },
+            {
+              nimi: "Lääne-Viru maakond",
+              rahvaarv: 59861
+            }
+          ]
+        }
+      </code></pre>
+    </div>
+  </body>
+</html>

@@ -4,20 +4,22 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "introspect": "npx prisma introspect",
-    "generate": "npx prisma generate",
+    "prisma:introspect": "npx prisma introspect",
+    "prisma:generate": "npx prisma generate",
     "dev": "nodemon",
-    "build": "npm run generate && webpack",
+    "build": "npm run prisma:generate && webpack",
     "webpack": "webpack",
-    "start": "node dist/index"
+    "start": "node dist/index",
+    "studio": "prisma studio --experimental"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kerdo Kurs",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^2.5.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "@prisma/client": "^2.5.1"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@prisma/cli": "^2.5.1",
@@ -25,11 +27,12 @@
     "@types/morgan": "^1.9.1",
     "@types/node": "^14.6.0",
     "copy-webpack-plugin": "^6.0.3",
+    "nodemon": "^2.0.4",
+    "ts-loader": "^8.0.3",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
-    "webpack-node-externals": "^2.5.2",
-    "nodemon": "^2.0.4",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "webpack-node-externals": "^2.5.2"
   }
 }
