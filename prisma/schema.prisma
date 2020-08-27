@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Maakond {
+  id_ Int @default(autoincrement()) @id
+
+  id       String @unique
+  nimi     String @unique
+  keskus   Linn   @relation(fields: [linnId_], references: [id_])
+  pindala  Int
+  rahvaarv Int
+  linnId_  Int
+}
+
+model Linn {
+  id_ Int @default(autoincrement()) @id
+
+  id       String    @unique
+  nimi     String
+  rahvaarv Int
+  Maakond  Maakond[]
+}
