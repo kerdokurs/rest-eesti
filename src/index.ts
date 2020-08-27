@@ -11,7 +11,7 @@ app.use(morgan('dev'));
 
 app.use('/v1', v1);
 
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static('public'));
 
 /* app.get('/', async (req, res) => {
   const maakonnad = await prisma.maakond.findMany({
