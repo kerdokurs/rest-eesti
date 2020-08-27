@@ -6,8 +6,11 @@ import 'dotenv/config';
 import v1 from './v1';
 import prisma from './v1/prisma';
 import { errorHandler } from './v1/middleware/errorHandler';
+import { forceHTTPS } from './v1/middleware/forceHTTPS';
 
 const app = express();
+
+app.use(forceHTTPS);
 
 app.use(morgan('dev'));
 
