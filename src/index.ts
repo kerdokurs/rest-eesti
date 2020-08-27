@@ -1,14 +1,19 @@
 import express from 'express';
 import morgan from 'morgan';
 
-import { PrismaClient } from '@prisma/client';
+import v1 from './v1';
+import prisma from './v1/prisma';
+import { join } from 'path';
 
 const app = express();
-const prisma = new PrismaClient();
 
 app.use(morgan('dev'));
 
-app.get('/', async (req, res) => {
+app.use('/v1', v1);
+
+app.use(express.static(join(__dirname, 'public')));
+
+/* app.get('/', async (req, res) => {
   const maakonnad = await prisma.maakond.findMany({
     orderBy: {
       nimi: 'asc',
@@ -30,12 +35,6 @@ app.get('/', async (req, res) => {
 
   res.json(maakonnad);
 });
-
-interface URLQuery {
-  fields?: string;
-  limit?: number;
-  order?: 'asc' | 'desc';
-}
 
 interface FetchParams {
   select?: object;
@@ -102,7 +101,7 @@ async function fetchData(
   if (select) options.select = select;
 
   return instance.findMany(options);
-}
+} */
 
 const port = process.env.PORT || 3000;
 
