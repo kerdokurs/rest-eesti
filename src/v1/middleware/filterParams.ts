@@ -15,8 +15,6 @@ export const filterParams = (req: any, res: any, next: any) => {
 
   const orderBy: any = {};
 
-  console.log(take);
-
   if (order) {
     const splitted = order.split(',');
     const orderIndex = splitted[0];

@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model Maakond {
@@ -21,23 +21,8 @@ model Maakond {
 model Linn {
   id_ Int @default(autoincrement()) @id
 
-  id       String @unique
+  id       String    @unique
   nimi     String
   rahvaarv Int
-
-  ilm IlmNode[]
-
-  Maakond Maakond[]
-}
-
-model IlmNode {
-  id_ Int @default(autoincrement()) @id
-
-  date   String @unique
-  temp   String
-  n_temp String
-
-  createdAt DateTime @default(now())
-  Linn      Linn?    @relation(fields: [linnId_], references: [id_])
-  linnId_   Int?
+  Maakond  Maakond[]
 }
